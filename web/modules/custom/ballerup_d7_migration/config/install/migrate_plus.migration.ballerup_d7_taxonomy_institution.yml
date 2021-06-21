@@ -7,6 +7,7 @@ deriver: Drupal\node\Plugin\migrate\D7NodeDeriver
 source:
   plugin: d7_node
   node_type: institution_page
+  track_changes: true
 process:
   vid:
     plugin: default_value

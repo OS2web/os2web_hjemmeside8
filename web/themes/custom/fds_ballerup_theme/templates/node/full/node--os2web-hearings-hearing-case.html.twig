@@ -7,7 +7,7 @@
   view_mode ? view_mode|clean_class,
 ]
 %}
-{% set timestamp = node.field_os2web_m_start_date.value|date('U') %}
+{% set timestamp = node.field_os2web_m_start_date.date|date('U') %}
 <div {{ attributes.addClass(classes) }}>
   {{ content.field_os2web_hearings_heading }}
   {{ content.field_os2web_hearings_intro }}
@@ -16,25 +16,6 @@
 
   {% if not content['#is_decision'] %}
   {{ content.field_os2web_hearings_reply }}
-
-  <h2>{{ 'Skriv dit høringssvar' | trans }}</h2>
-  <div class="box">
-    <div class="box__body">
-      <div class="row">
-        <div class="col-12 col-md-auto">
-          {{ content.field_os2web_hearings_end_date }}
-        </div>
-        <div class="col-12 col-md-auto">
-          {{ content.field_os2web_hearings_published }}
-        </div>
-        <div class="col-12 col-md-auto">
-          {% if not content['#closed'] %}
-            {{ content.links }}
-          {% endif %}
-        </div>
-      </div>
-    </div>
-  </div>
 {% endif %}
   <br />
 

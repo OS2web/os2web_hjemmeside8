@@ -7,6 +7,7 @@ deriver: Drupal\node\Plugin\migrate\D7NodeDeriver
 source:
   plugin: d7_node
   node_type: gallery_slide
+  track_changes: true
 process:
   field_os2web_iframe_code:
     -

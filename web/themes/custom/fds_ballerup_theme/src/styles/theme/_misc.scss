@@ -32,6 +32,13 @@ body a {
   }
 }
 
+.row--equal-height-columns {
+
+  > div {
+    display: flex;
+  }
+}
+
 .button {
   font-weight: bold;
 
@@ -112,6 +119,28 @@ svg.ext {
   display: none;
 }
 
+.view {
+
+  .form-type-select {
+
+    .form-label {
+      display: block;
+    }
+
+    .chosen-single {
+      @extend .form-select;
+
+      b {
+        display: none;
+      }
+    }
+
+    .chosen-container .chosen-drop {
+      border: $outer-border;
+    }
+  }
+}
+
 #views-exposed-form-os2web-meetings-search-os2web-meetings-embed-search-from-to-dates {
   margin-bottom: $grid-gutter-width / 2;
   padding: 30px;
@@ -122,11 +151,7 @@ svg.ext {
 
   .form-item-from-date,
   .form-item-to-date {
-    max-width: 150px;
-  }
-
-  .form-select {
-    margin-top: 8px;
+    max-width: 130px;
   }
 
   .form-actions {
@@ -139,6 +164,42 @@ svg.ext {
 body .page-container {
   padding-top: 0;
   padding-bottom: 0;
+}
+
+.two-col-list {
+  position: relative;
+  list-style: none;
+  padding: 10px 30px 30px 30px;
+  margin: 15px -30px -30px -30px;
+  column-count: 2;
+  column-gap: 30px;
+  border-top: 1px solid #f5f7f8;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 2px;
+    height: 100%;
+    margin-left: -1px;
+    background-color: #f5f7f8;
+  }
+
+  li {
+    margin: 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 0;
+    min-height: 26px;
+    -webkit-column-break-inside: avoid;
+    page-break-inside: avoid;
+    break-inside: avoid;
+
+    &:before {
+      display: none;
+    }
+  }
 }
 
 .region-sidebar-second {
@@ -329,6 +390,33 @@ body {
 
   .layout--hidden-on-sections {
     display: none !important;
+  }
+}
+
+body {
+
+  .tooltip{
+    text-align: center;
+    font-size: 1.2rem;
+    box-shadow: $box-shadow-moderately;
+    color: #fff;
+    background-color: rgba(0,0,0,.9);
+    border: none;
+    border-radius: 4px;
+    padding: .3rem .6rem;
+    max-width: 260px;
+  }
+}
+
+.field--name-field-os2web-hearings-reply {
+  display: none !important;
+}
+
+body.page-node-type-os2web-news,
+body.page-node-type-os2web-page {
+
+  h1, .h1 {
+    font-weight: 400;
   }
 }
 

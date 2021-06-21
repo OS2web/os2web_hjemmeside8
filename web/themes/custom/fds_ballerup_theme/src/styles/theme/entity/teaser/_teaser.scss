@@ -45,6 +45,10 @@ a.entity-teaser {
 
   padding: ($grid-gutter-width / 2) 0;
 
+  .entity-teaser--os2web-news & {
+    padding-top: 0;
+  }
+
   .field--type-body {
     flex-grow: 1;
   }

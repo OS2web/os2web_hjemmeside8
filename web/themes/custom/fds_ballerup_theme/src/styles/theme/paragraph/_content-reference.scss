@@ -28,6 +28,10 @@
       text-transform: uppercase;
 
       color: $color-text;
+
+      .region-sidebar-second & {
+        margin-top: 0;
+      }
     }
   }
   .field--name-field-os2web-content-ref-subhead {

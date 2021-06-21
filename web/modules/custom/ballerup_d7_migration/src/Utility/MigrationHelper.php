@@ -19,6 +19,22 @@ class MigrationHelper {
   }
 
   /**
+   * Sets the moderation state for the node based on a status.
+   * 
+   * @param $status
+   *
+   * @return string
+   */
+  function setModerationState($status) {
+    if ($status) {
+      return 'published';
+    }
+    else {
+      return 'draft';
+    }
+  }
+
+  /**
    * Creates Borger.dk paragraph with the right article selected.
    *
    * @param $field_borger_dk_article_ref
@@ -119,7 +135,7 @@ class MigrationHelper {
     // Creating text paragraph.
     $text_paragraph = Paragraph::create([
       'type' => 'os2web_simple_text_paragraph',
-      'field_os2web_simple_text_heading' => $title,
+      'field_os2web_simple_text_heading' => '',
       'field_os2web_simple_text_body' => [
         'value' => $text,
         'format' => 'wysiwyg_tekst'
@@ -152,7 +168,7 @@ class MigrationHelper {
    *
    * @return array
    *   [
-   *     'target_id' => ,
+   *     'tid'
    *   ]
    *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
@@ -177,9 +193,7 @@ class MigrationHelper {
       $term->save();
     }
 
-    return [
-      'target_id' => $term->id()
-    ];
+    return [$term->id()];
   }
 
   /**
@@ -277,6 +291,58 @@ class MigrationHelper {
     }
 
     return $file->id();
+  }
+
+  /**
+   * Generates digital post link.
+   *
+   * @param $field_link
+   *   Raw field text.
+   *
+   * @return string
+   *   HTML for the link.
+   */
+  function createDigitalPostLink($field_link) {
+    $digitalPostLink = '';
+    if (!empty($field_link)) {
+      $digitalPostLink = '<a href="' . $field_link . '" target="_blank">Digital post</a>';
+    }
+
+    return $digitalPostLink;
+  }
+
+  /**
+   * Helper function to find local node by remote ID.
+   *
+   * @param $sourceNodeId
+   *   Remote node ID.
+   *
+   * @return int|null
+   *   Int if the local node is found. NULL otherwise.
+   */
+  function findLocalNode($sourceNodeId) {
+    $node_migrate_tables = [
+      'migrate_map_ballerup_d7_node_gallery_slide',
+      'migrate_map_ballerup_d7_node_indholdside',
+      'migrate_map_ballerup_d7_node_institution_page',
+      'migrate_map_ballerup_d7_node_news',
+    ];
+
+    $database = \Drupal::database();
+    foreach ($node_migrate_tables as $table) {
+      $localNid = $database->select($table)->fields($table, [
+        'destid1',
+      ])
+        ->condition('sourceid1', $sourceNodeId)
+        ->execute()
+        ->fetchField();
+
+      if ($localNid) {
+        return $localNid;
+      }
+    }
+
+    return NULL;
   }
 
 }

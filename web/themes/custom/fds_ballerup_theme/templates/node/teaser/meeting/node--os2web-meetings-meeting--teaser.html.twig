@@ -8,7 +8,7 @@
 ]
 %}
 {% if node.field_os2web_m_start_date.value %}
-{% set timestamp = node.field_os2web_m_start_date.value|date('U') %}
+  {% set timestamp = node.field_os2web_m_start_date.date|date('U') %}
 {% endif %}
 
 <a href="{{ url }}" {{ attributes.addClass(classes) }}>
@@ -27,10 +27,7 @@
 
   <div class="entity-{{ view_mode|clean_class }}--{{ node.bundle|clean_class }}__content">
     <div class="row">
-      <div class="col col-sm-5 col--align-center">
-        {{ content.field_os2web_m_type }}
-      </div>
-      <div class="col col-sm-7 col--align-center d-none d-sm-flex">
+      <div class="col col--align-center">
         {% if timestamp %}
           {{ timestamp | format_date('long') }}
         {% endif %}

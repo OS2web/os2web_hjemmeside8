@@ -8,6 +8,7 @@ deriver: Drupal\node\Plugin\migrate\D7NodeDeriver
 source:
   plugin: d7_node
   node_type: news
+  track_changes: true
 process:
   # If you are using this file to build a custom migration consider removing
   # the nid and vid fields to allow incremental migrations.
@@ -24,6 +25,7 @@ process:
     source: language
     default_value: 'und'
   title: title
+  field_os2web_news_heading: title
   migrate_uid:
     - plugin: migration_lookup
       migration: ballerup_d7_user
@@ -35,7 +37,7 @@ process:
   status: status
   created: created
   changed: changed
-  promote: promote
+  #promote: promote
   sticky: sticky
   field_os2web_news_article_author: field_newsarticle_author
   field_os2web_news_article_date:
@@ -109,7 +111,7 @@ process:
         - 'Drupal\ballerup_d7_migration\Utility\MigrationHelper'
         - createFileManaged
   field_os2web_news_primaryimage/target_id: '@migrate_file_fid'
-  field_os2web_news_primaryimage/alt: title  
+  field_os2web_news_primaryimage/alt: title
 destination:
   plugin: entity:node
 migration_dependencies:

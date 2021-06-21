@@ -43,18 +43,18 @@ foreach ($nids as $nid) {
   // Find corresponding migrate_nid
   if (isset($migrate_nids[$nid])) {
     $migrateNid = $migrate_nids[$nid];
-    print_r("Inspecting $nid : $migrateNid");
-    print_r(PHP_EOL);
+//    print_r("Inspecting $nid : $migrateNid");
+//    print_r(PHP_EOL);
 
     // Find migrate node status
     $status = $migrateNodeStatus[$migrateNid];
-    print_r("Status is $status");
-    print_r(PHP_EOL);
+//    print_r("Status is $status");
+//    print_r(PHP_EOL);
 
     // If published.
     if ($status) {
-      print_r("Setting $nid published");
-      print_r(PHP_EOL);
+//      pint_r("Setting $nid published");
+//      print_r(PHP_EOL);
 
       $node = Node::load($nid);
       $node->setPublished(TRUE);

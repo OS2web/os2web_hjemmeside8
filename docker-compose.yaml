@@ -11,7 +11,6 @@ volumes:
     driver: local
   os2web:
     driver: local
-
 services:
 
   # General application container.
@@ -27,19 +26,12 @@ services:
     depends_on:
       - mariadb
     ports:
-      - "8080:80"
+      - "${WEB_SERVER_PORT}:80"
     networks:
       - backend
       - frontend
-    environment:
-      ## Environment sensitive settings. See .env file.
-      - MYSQL_HOSTNAME=${MYSQL_HOSTNAME}
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
-      - MYSQL_USER=${MYSQL_USER}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-      - MYSQL_PORT=${MYSQL_PORT}
-      - DRUPAL_HASH_SALT=${DRUPAL_HASH_SALT}
-      - OS2WEB_THEME=${OS2WEB_THEME}
+    env_file:
+      - .env
 
   mariadb:
     image: mariadb:latest
@@ -47,12 +39,8 @@ services:
     volumes:
       - ./.docker/mariadb/data:/var/lib/mysql:delegated
       - ./.docker/mariadb/my.cnf:/etc/mysql/conf.d/my.cnf:ro,delegated
-    environment:
-      ## Environment sensitive settings. See .env file.
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
-      - MYSQL_USER=${MYSQL_USER}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    env_file:
+      - .env
     networks:
       - backend
 
@@ -104,13 +92,25 @@ services:
       - /bin/bash
       - -c
       - "drush status --root=/opt/drupal"
-    environment:
-      ## Environment sensitive settings. See .env file.
-      - MYSQL_HOSTNAME=${MYSQL_HOSTNAME}
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
-      - MYSQL_USER=${MYSQL_USER}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-      - MYSQL_PORT=${MYSQL_PORT}
-      - DRUPAL_HASH_SALT=${DRUPAL_HASH_SALT}
-      - OS2WEB_THEME=${OS2WEB_THEME}
+    env_file:
+      - .env
+
+  agenda_import:
+    # Check agenda file container.
+    image: dkbellcom/os2web8:${OS2WEB_TAG}
+    container_name: agenda_import
+    volumes:
+      - ./files:/opt/drupal/files
+      - ./:/opt/drupal
+      - ./private:/opt/drupal/private
+    env_file:
+      - .env
+    networks:
+      - backend
+    entrypoint:
+      - /bin/bash
+      - -c
+    command:
+      - "mkdir -p mnt/Testshares; \
+      cat /opt/drupal/private/mntCred; \
+      php /opt/drupal/scripts/dagsorden/check_shares.php -h=${OS2WEB_MEETINGS_MNT_HOST} -s=${OS2WEB_MEETINGS_MNT_SHARES} -m=/opt/drupal/mnt -c=/opt/drupal/private/mntCred -d"

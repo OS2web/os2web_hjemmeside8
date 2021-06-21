@@ -35,16 +35,16 @@
         margin-top: map-get($spacers, 3);
         list-style-type: none;
         position: relative;
-        padding-left: 30px !important;
         line-height: $body-text-line-height;
+        padding-left: 20px;
 
         &::before {
-          content: "■";
+          content: "\2022";
           position: absolute;
           left: 5px;
-          top: -1px;
-          font-size: 20px;
-          color: $color-blue-002;
+          top: 0;
+          font-size: 22px;
+          color: #000;
         }
       }
     }

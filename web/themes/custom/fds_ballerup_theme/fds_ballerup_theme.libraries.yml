@@ -10,6 +10,8 @@ styles:
 
 javascripts:
   js:
+    "https://unpkg.com/@popperjs/core@2": { type: external }
+    "https://unpkg.com/tippy.js@6": { type: external }
     dist/javascripts/app.js: {}
     dist/javascripts/modernizr.js: {}
   dependencies:

@@ -9,6 +9,7 @@ RUN set -eux; \
 		wget \
 		lsb-release \
 		gnupg \
+		rsync \
 		cron; \
 	docker-php-ext-install soap; \
 	curl -fsSL "https://github.com/drush-ops/drush-launcher/releases/latest/download/drush.phar" -o /usr/local/bin/drush && chmod +x /usr/local/bin/drush; \

@@ -34,12 +34,34 @@
       border-top: 1px solid #dadde0;
     }
   }
+
+  li.has-selfservice-links {
+    position: relative;
+
+    .selfservice-links {
+      position: absolute;
+
+      top: 0;
+      right: 0;
+
+      z-index: 500;
+
+      padding-top: 14px;
+      padding-bottom: 14px;
+      padding-right: 14px;
+      padding-left: 20px;
+    }
+
+    .accordion-button {
+      padding-right: 12rem;
+    }
+  }
 }
 .accordion-button {
   position: relative;
 
   padding: 2.4rem 2.4rem;
-  padding-right: 6rem;
+  padding-left: 7rem;
 
   text-transform: uppercase;
   font-weight: $font-weight-bold;
@@ -61,11 +83,13 @@
 
     padding-top: 2px;
 
-    top: 1.7rem;
-    right: 2.4rem;
+    top: 50%;
+    left: 2.4rem;
 
     width: 3.5rem;
     height: 3.5rem;
+
+    margin-top: -1.75rem;
 
     font-size: 2rem;
     font-family: FontAwesome;
@@ -92,7 +116,7 @@
 }
 
 .accordion-content {
-  padding: 0.5rem 2.4rem 2rem 2.4rem;
+  padding: 2rem 2.4rem;
 
   .field {
 

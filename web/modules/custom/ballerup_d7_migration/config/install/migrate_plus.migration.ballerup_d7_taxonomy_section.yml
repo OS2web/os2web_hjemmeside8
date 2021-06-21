@@ -7,6 +7,7 @@ deriver: Drupal\taxonomy\Plugin\migrate\D7TaxonomyTermDeriver
 source:
   plugin: d7_taxonomy_term
   bundle: section
+  track_changes: true
 process:
   vid:
     plugin: default_value

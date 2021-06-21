@@ -30,7 +30,14 @@ $databases['migrate']['default'] = array (
 );
 ```
 
-## Migrate process
+## Migrate quick run
+Run the entire migration process with single command:
+```
+cd web
+sh ./modules/custom/ballerup_d7_migration/scripts/migrate.sh
+```
+
+## Migrate process details for manual run
 
 The recommended usage migrate process is via Drush:
 
@@ -44,6 +51,11 @@ Read more about the Drush commands for Migrate API on [Migrate tools](https://ww
  * Migrate section terms:
     ```
     drush migrate:import ballerup_d7_taxonomy_section
+    ```
+
+ * Migrate tags terms:
+    ```
+    drush migrate:import ballerup_d7_taxonomy_tags
     ```
 
  * Migrate Borger.dk articles:
@@ -62,6 +74,16 @@ Read more about the Drush commands for Migrate API on [Migrate tools](https://ww
     drush migrate:import ballerup_d7_node_gallery_slide
     ```
 
+ * Migrate Institution pages:
+   ```
+   drush migrate:import ballerup_d7_node_institution_page
+   ```
+
+ * Migrate News:
+   ```
+   drush migrate:import ballerup_d7_node_news
+   ```
+
  * Migrate Harmonika paragraphs __NB*__:
     ```
     drush cim --partial --source=modules/contrib/os2web_pagebuilder/modules/os2web_paragraphs/modules/os2web_accordion_paragraph/config/optional
@@ -74,6 +96,20 @@ Read more about the Drush commands for Migrate API on [Migrate tools](https://ww
     drush migrate:import ballerup_d7_node_indholdside
     ```
 
+## Migration fixes
+Some parts were too complication or not possible to be solved by only running the migrations.
+They require extra scripts to run after the migration is done. See *scripts* directory
+* drush scr scripts/migrate_fix_publish_status.php
+
+  Fixing the publish status of the node.
+
+* drush scr scripts/remove_inline_pictures.php
+
+  Body field might come with inline pictures/files. This script removes that.
+
+* URL ```/admin/config/system/delete-orphans```
+
+  Delete the orphaned paragraphs.
 
 __NB*__ This migration involves entities manual creation, and when run multiple times database is left with orphaned entities. It is _not recommended_ to run this migratons multiple times on a __production database__.
 

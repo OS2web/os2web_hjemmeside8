@@ -7,22 +7,17 @@
   view_mode ? view_mode|clean_class,
 ]
 %}
-{% if node.field_os2web_m_start_date.value %}
-  {% set timestamp = node.field_os2web_m_start_date.value|date('U') %}
-{% endif %}
-{% set timestamp = node.field_os2web_m_start_date.value|date('U') %}
+{% set timestamp = node.field_os2web_m_start_date.date|date('U') %}
 <div {{ attributes.addClass(classes) }}>
   <h1>{{ label }}</h1>
   <div class="fields-inline">
-    {{ content.field_os2web_m_type }}
     <div class="field">
       {% if timestamp %}
-        <h4>{{ timestamp | format_date('os2core_date_medium') }}</h4>
+        {{ timestamp | format_date('long') }}
       {% endif %}
     </div>
   </div>
 
-  {{ content.field_os2web_m_committee }}
   {{ content.field_os2web_m_location }}
 
   <br>

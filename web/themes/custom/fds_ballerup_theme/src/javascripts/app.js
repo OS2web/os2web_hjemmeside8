@@ -21,6 +21,29 @@ jQuery(function ($) {
   }
 })();
 
+// Accordion.
+(function () {
+  function handleClose(event) {
+    var element = this;
+    var listItem = element.closest('li');
+    var content = listItem.querySelector('.accordion-content');
+    var button = listItem.querySelector('.accordion-button');
+
+    content.setAttribute('aria-expanded', 'false');
+    content.setAttribute('aria-hidden', 'true');
+
+    button.setAttribute('aria-expanded', 'false');
+  }
+
+  var buttons = document.querySelectorAll('.js-accordion-close-current');
+
+  for (var i = 0; i < buttons.length; i++) {
+    var button = buttons[i];
+
+    button.addEventListener('click', handleClose);
+  }
+})();
+
 // Search.
 document.addEventListener('DOMContentLoaded', function() {
   function toggle(event) {
@@ -43,30 +66,17 @@ document.addEventListener('DOMContentLoaded', function() {
 (function() {
   var links = document.querySelectorAll('.field--type-file .file a');
 
+  function generateValue(text) {
+    return 'Hent: ' + text;
+  }
+
   for (var i = 0; i < links.length; i++) {
     var link = links[i];
 
+    link.innerHTML = generateValue(link.innerHTML);
     link.setAttribute('target', '_blank');
   }
 })();
-
-// Content reference mobile display.
-// (function() {
-//   var selector = '.paragraph--type--os2web-content-reference .mobile-only .field--name-field-os2web-content-reference';
-//
-//   if (document.querySelector(selector) !== null) {
-//
-//     // Run tiny slider.
-//     tns({
-//       container: selector,
-//       items: 1,
-//       autoplay: true,
-//       autoplayHoverPause: true,
-//       gutter: 32,
-//       rewind: true,
-//     });
-//   }
-// })();
 
 // Max height on sidenav lists.
 (function() {
@@ -123,3 +133,14 @@ document.addEventListener('DOMContentLoaded', function() {
     button.addEventListener('click', handleToggle);
   }
 })();
+
+// Tooltips on mailto: links.
+(function() {
+  var links = document.querySelectorAll('a[href^="mailto:"]');
+
+  tippy(links, {
+    content: '<div style="text-align: center;">Du er nu ved at sende en almindelig e-mail. <br />Hvis din besked indeholder personoplysninger, bør du i stedet sende den som en <br /><a href="/sikkerbesked" style="color: #fff;">sikker besked</a></div>',
+    allowHTML: true,
+    interactive: true,
+  });
+}());

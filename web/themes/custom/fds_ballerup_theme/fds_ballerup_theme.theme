@@ -117,7 +117,7 @@ function fds_ballerup_theme_preprocess_node(array &$variables) {
   /** @var \Drupal\node\NodeInterface $node */
   $node = $variables['node'];
 
-  if ($variables['view_mode'] == 'search_result' && $node->getType() == 'os2web_page') {
+  if (($variables['view_mode'] == 'search_result' || $variables['view_mode'] == 'search_index') && $node->getType() == 'os2web_page') {
     $sectionLabels = [];
     if ($section_id = $node->field_os2web_page_section->target_id) {
       $parents = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadAllParents($section_id);

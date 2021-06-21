@@ -1,4 +1,4 @@
-{% set uniqueId = 'bp-accordion-' ~ random() %}
+{% set uniqueId = node.label | lower | replace({" ": "-", ".": ""}) | url_encode %}
 {%
   set classes = [
   node.bundle|clean_class,
@@ -10,7 +10,7 @@
 ]
 %}
 
-<button class="accordion-button" aria-expanded="false" aria-controls="{{ uniqueId }}">
+<button class="accordion-button js-accordion-add-link" aria-expanded="false" aria-controls="{{ uniqueId }}">
   {{ label }}
 </button>
 
@@ -23,17 +23,15 @@
     </div>
   {% endif %}
 
-  {% if content['#decision'] %}
-    <div class="box box--primary">
-      <div class="box__body">
-        {{ content['#decision'] }}
-      </div>
-    </div>
-  {% endif %}
-
   {{ content.body }}
   {{ content.field_os2web_m_bp_enclosures }}
   {{ content.field_os2web_m_bp_bpas }}
+
+  {% if content['#decision'] %}
+    <div>
+      {{ content['#decision'] }}
+    </div>
+  {% endif %}
 
   <button class="accordion-close-button js-accordion-close-current" aria-controls="{{ uniqueId }}">
     <span class="icon fa fa-angle-up"></span>

@@ -6,6 +6,7 @@ migration_tags:
 class: Drupal\user\Plugin\migrate\User
 source:
   plugin: d7_user
+  track_changes: true
 process:
   # If you are using this file to build a custom migration,
   # consider removing the uid field to allow

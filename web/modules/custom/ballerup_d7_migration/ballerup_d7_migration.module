@@ -1,6 +1,1 @@
 <?php
-
-function ballerup_d7_migration_create_url_from_nid($nid) {
-  return 'test/' . $nid;
-}
-
